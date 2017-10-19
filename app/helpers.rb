@@ -8,6 +8,8 @@ module Helpers
     end
   end
 
+  # Prompts the user for an ID. It takes in the type of object whose ID you're 
+  # requesting, and what action will be performed on that object once found.
   def prompt_obj_id(obj_type, action)
     print "Enter #{obj_type} ID to #{action}: "
     id = gets.chomp

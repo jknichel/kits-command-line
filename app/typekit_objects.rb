@@ -2,7 +2,8 @@
 class Kit
   attr_reader :id, :name, :analytics, :domains, :families, :optimize_performance
 
-  # Fields that make up a Kit, and acceptable datatypes for each.
+  # Fields that make up a Kit, and acceptable datatypes for each. Doesn't allow
+  # duck-typing, but this is fine for our needs, for now.
   VALID_FIELDS_AND_TYPES = {'analytics' => [TrueClass, FalseClass], 
                             'domains' => [Array], 
                             'families' => [Array], 'id' => [String], 
@@ -12,11 +13,13 @@ class Kit
   # Takes the API's JSON response as 'params' and assigns each attribute to the
   # appropriate variable. 
   def initialize(params)
+    # Check if there are any unacceptable attribute names.
     unless params.keys.sort == VALID_FIELDS_AND_TYPES.keys.sort
       raise ArgumentError.new "Keys of Kit initialization hash don't match " \
                               "acceptable values."
     end
 
+    # Check if any of the attribute datatypes are unacceptable.
     params.keys.each do |attr|
       unless VALID_FIELDS_AND_TYPES[attr].include? params[attr].class
         raise ArgumentError.new "Data type mismatch in Kit initialization."
@@ -29,7 +32,8 @@ class Kit
   end
 end
 
-# Class representing a Typekit family of fonts.
+# Class representing a Typekit family of fonts. Attribute and field validation
+# works the same as in class Kit above.
 class FontFamily
   attr_reader :id, :name, :slug, :css_names, :css_stack, :subset, :variations
 

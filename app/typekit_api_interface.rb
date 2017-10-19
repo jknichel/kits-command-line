@@ -65,6 +65,8 @@ module TypekitApiInterface
     end
   end
 
+  # An error to be used in case the response from the endpoint is missing 
+  # expected data.
   class MissingExpectedFieldError < StandardError
     def initialize(msg="The response from the endpoint is missing an expected value!")
       super(msg)
