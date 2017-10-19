@@ -17,6 +17,6 @@ module Helpers
       print "Please enter an ID: "
       id = gets.chomp
     end
-    id
+    id.delete(' ')
   end
 end

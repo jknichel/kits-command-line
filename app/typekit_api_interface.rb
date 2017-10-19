@@ -26,7 +26,7 @@ module TypekitApiInterface
 
     # The below methods make requests to the Typekit API endpoints and return
     # hashes from the parsed JSON responses. The methods that make POST requests
-    # take in a JSON string and parse them for RestClient.
+    # take in payloads in the form of parsed JSON.
     def list_kits
       resp = make_request :get, "kits"
       check_response_for_field resp, "kits"
@@ -37,14 +37,12 @@ module TypekitApiInterface
       check_response_for_field resp, "kit"
     end
 
-    def create_kit(json)
-      payload = JSON.parse(json)
+    def create_kit(payload)
       resp = make_request :post, "kits", payload
       check_response_for_field resp, "kit"
     end
 
-    def update_kit(id, json)
-      payload = JSON.parse(json)
+    def update_kit(id, payload)
       resp = make_request :post, "kits/#{id}", payload
       check_response_for_field resp, "kit"
     end

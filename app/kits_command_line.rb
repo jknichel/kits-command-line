@@ -15,6 +15,9 @@ include Presenters
 # endpoint functionalities.
 FUNCTIONS = ['list-kits', 'kit-info', 'update-kit', 'create-kit', 'delete-kit']
 
+# Constant that holds a list of all functions that make POST requests.
+POST_REQUEST_FUNCTIONS = ['update-kit', 'create-kit']
+
 # Hash to hold options input from the command line.
 options = {}
 
@@ -66,6 +69,11 @@ wrapper = TypekitApiInterface::TypekitApiWrapper.new(options[:tk_auth_key])
 # and store the response JSON, use the response to create an object, print the
 # object with the appropriate presenter.
 begin
+  # First, a function that requires params is presented, parse the JSON here.
+  if POST_REQUEST_FUNCTIONS.include? options[:function]
+    options[:params] = JSON.parse options[:params]
+  end
+
   case options[:function]
   when 'list-kits'
     response = wrapper.list_kits
