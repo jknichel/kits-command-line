@@ -69,7 +69,7 @@ wrapper = TypekitApiInterface::TypekitApiWrapper.new(options[:tk_auth_key])
 # and store the response JSON, use the response to create an object, print the
 # object with the appropriate presenter.
 begin
-  # First, a function that requires params is presented, parse the JSON here.
+  # First, if a function that requires params is present parse the JSON here.
   if POST_REQUEST_FUNCTIONS.include? options[:function]
     options[:params] = JSON.parse options[:params]
   end
